@@ -1,0 +1,44 @@
+body{
+    margin: 0;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+main{
+    /* padding-top: 200px; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 500px;
+    height: 500px;
+}
+
+main div{
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+}
+
+.btn{
+    margin: auto;
+    font-size: large;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover{
+    background-color: #f7f2f2;
+    color: #110101;
+}
+
+.heading{
+    font-size: 4rem;
+    padding-top: 30px;
+}
