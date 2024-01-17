@@ -43,6 +43,7 @@ main div{
     padding-top: 30px;
 }
 
-.turn{
+.turn, .congo{
     font-size: 2rem;
+    text-align: center;
 }

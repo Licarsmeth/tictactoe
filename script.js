@@ -4,8 +4,8 @@ const gameboard = (function () {
     [3, 4, 5],
     [6, 7, 8],
     [0, 3, 6],
-    [1, 5, 7],
-    [2, 6, 8],
+    [1, 4, 7],
+    [2, 5, 8],
     [0, 4, 8],
     [2, 4, 6],
   ];
@@ -55,8 +55,8 @@ const playGame = () => {
 const updateState = (e) => {
   //if x turn change x state, else change o state
   curr == "X"
-    ? XPlayer.state.push(e.target.dataset.cell)
-    : OPlayer.state.push(e.target.dataset.cell);
+    ? XPlayer.state.push(Number(e.target.dataset.cell))
+    : OPlayer.state.push(Number(e.target.dataset.cell));
 };
 
 const changePlayer = () => {
@@ -78,7 +78,7 @@ const winCheck = () => {
       subarray.every((value) => OPlayer.state.includes(value))
     );
   }
-
+  console.log(XPlayer.state);
   console.log(isWinningCondition);
 
   if (isWinningCondition) {
