@@ -9,19 +9,19 @@ body{
 }
 
 main{
-    /* padding-top: 200px; */
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
 }
 
 main div{
-    border: 1px solid white;
+    border: 0.1px solid white;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 5rem;
+    min-height: 133px; 
+    font-size: 3rem;
 }
 
 .btn{
@@ -41,4 +41,8 @@ main div{
 .heading{
     font-size: 4rem;
     padding-top: 30px;
+}
+
+.turn{
+    font-size: 2rem;
 }
