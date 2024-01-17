@@ -1,28 +1,42 @@
 const gameboard = (function () {
-  const gameArray = [];
-  return { gameArray };
+  const winCondition = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    [1, 5, 9],
+    [3, 5, 7],
+  ];
+  return { winCondition };
 })();
 
-const Players = function (name, state = "") {
+const Players = function (name, state = []) {
   return { name, state };
 };
 
-const oPlayer = Players("O");
-const xPlayer = Players("X");
-// console.log(oPlayer);
+const OPlayer = Players("O");
+const XPlayer = Players("X");
+let curr = "X";
 
 //selecting the elements
 const cells = document.querySelectorAll("main div");
 const restart = document.querySelector("button");
 const turn = document.querySelector(".turn");
 
-restart.addEventListener("click", () => {
+const res = () => {
   for (let cell of cells) {
     cell.textContent = "";
+    OPlayer.state = [];
+    XPlayer.state = [];
   }
-});
+};
 
-let curr = "X";
+//restart click event
+restart.addEventListener("click", res);
+
+
 const playGame = () => {
   //first turn is of X
   //set the current player variable as curr
@@ -30,10 +44,19 @@ const playGame = () => {
     cell.addEventListener("click", (e) => {
       if (e.target.textContent == "") {
         e.target.textContent = curr;
+        updateState(e);
+        winCheck();
         changePlayer();
       }
     });
   }
+};
+
+const updateState = (e) => {
+  //if x turn change x state, else change o state
+  curr == "X"
+    ? XPlayer.state.push(e.target.dataset.cell)
+    : OPlayer.state.push(e.target.dataset.cell);
 };
 
 const changePlayer = () => {
@@ -43,7 +66,21 @@ const changePlayer = () => {
 };
 
 const winCheck = () => {
-  //put current state as 's' and check 's' patters
-  //against the various array possibilities
+  //put current state as 's' and check 's' patterns
+  //against the win condition
+  //like see if s[1,2,4,6,7] contains wc[1,4,7]
+  let isWinningCondition;
+  if(curr=='X'){
+  isWinningCondition = gameboard.winCondition.some((subarray) =>
+    subarray.every((value) => XPlayer.state.includes(value))
+  );
+  } 
+  else {
+    isWinningCondition = gameboard.winCondition.some((subarray) =>
+    subarray.every((value) => OPlayer.state.includes(value))
+  );
+  }
+  console.log(XPlayer.state, OPlayer.state);
+  console.log(isWinningCondition);
 };
 playGame();
