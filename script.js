@@ -65,9 +65,12 @@ const changePlayer = () => {
   turn.textContent = `${curr}'s Turn!`;
 };
 
+const congo = () =>{
+    
+}
+
 const winCheck = () => {
-  //put current state as 's' and check 's' patterns
-  //against the win condition
+  //check state against winning condition
   //like see if s[1,2,4,6,7] contains wc[1,4,7]
   let isWinningCondition;
   if(curr=='X'){
@@ -82,5 +85,9 @@ const winCheck = () => {
   }
   console.log(XPlayer.state, OPlayer.state);
   console.log(isWinningCondition);
+  if(isWinningCondition){
+    congo();
+    res();
+  }
 };
 playGame();
