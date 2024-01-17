@@ -1,13 +1,13 @@
 const gameboard = (function () {
   const winCondition = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-    [1, 4, 7],
-    [2, 5, 8],
-    [3, 6, 9],
-    [1, 5, 9],
-    [3, 5, 7],
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 5, 7],
+    [2, 6, 8],
+    [0, 4, 8],
+    [2, 4, 6],
   ];
   return { winCondition };
 })();
@@ -24,6 +24,7 @@ let curr = "X";
 const cells = document.querySelectorAll("main div");
 const restart = document.querySelector("button");
 const turn = document.querySelector(".turn");
+const congrats = document.querySelector(".congo");
 
 const res = () => {
   for (let cell of cells) {
@@ -35,7 +36,6 @@ const res = () => {
 
 //restart click event
 restart.addEventListener("click", res);
-
 
 const playGame = () => {
   //first turn is of X
@@ -65,28 +65,24 @@ const changePlayer = () => {
   turn.textContent = `${curr}'s Turn!`;
 };
 
-const congo = () =>{
-    
-}
-
 const winCheck = () => {
   //check state against winning condition
   //like see if s[1,2,4,6,7] contains wc[1,4,7]
   let isWinningCondition;
-  if(curr=='X'){
-  isWinningCondition = gameboard.winCondition.some((subarray) =>
-    subarray.every((value) => XPlayer.state.includes(value))
-  );
-  } 
-  else {
+  if (curr == "X") {
     isWinningCondition = gameboard.winCondition.some((subarray) =>
-    subarray.every((value) => OPlayer.state.includes(value))
-  );
+      subarray.every((value) => XPlayer.state.includes(value))
+    );
+  } else {
+    isWinningCondition = gameboard.winCondition.some((subarray) =>
+      subarray.every((value) => OPlayer.state.includes(value))
+    );
   }
-  console.log(XPlayer.state, OPlayer.state);
+
   console.log(isWinningCondition);
-  if(isWinningCondition){
-    congo();
+
+  if (isWinningCondition) {
+    congrats.textContent = `Congratulations! ${curr} is the winner 🥳`;
     res();
   }
 };
