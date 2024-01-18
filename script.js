@@ -19,6 +19,7 @@ const Players = function (name, state = []) {
 const OPlayer = Players("O");
 const XPlayer = Players("X");
 let curr = "X";
+let count = 0;
 
 //selecting the elements
 const cells = document.querySelectorAll("main div");
@@ -81,9 +82,8 @@ const winCheck = () => {
   console.log(XPlayer.state);
   console.log(isWinningCondition);
 
-  if (isWinningCondition) {
+  if (isWinningCondition || count == 9) {
     congrats.textContent = `Congratulations! ${curr} is the winner 🥳`;
-    res();
   }
 };
 playGame();

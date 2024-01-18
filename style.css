@@ -29,13 +29,13 @@ main div{
     font-size: large;
     background-color: transparent;
     color: white;
-    cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 }
 
-.btn:hover{
+.btn:hover, main div:hover{
     background-color: #f7f2f2;
     color: #110101;
+    cursor: pointer;
 }
 
 .heading{
