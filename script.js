@@ -18,8 +18,8 @@ const Players = function (name, state = []) {
 
 const OPlayer = Players("O");
 const XPlayer = Players("X");
-let curr = "X";
-let count = 0;
+let curr = "X"; //to set the current player
+let count = 0; //if count == 9 and no one won, it's draw
 
 //selecting the elements
 const cells = document.querySelectorAll("main div");
@@ -30,26 +30,41 @@ const congrats = document.querySelector(".congo");
 const res = () => {
   for (let cell of cells) {
     cell.textContent = "";
-    OPlayer.state = [];
-    XPlayer.state = [];
   }
+  count = 0;
+  congrats.textContent = "";
+  OPlayer.state = [];
+  XPlayer.state = [];
+  playGame();
 };
 
 //restart click event
 restart.addEventListener("click", res);
 
-const playGame = () => {
+//freeze the game after it ends
+const freezeBoard = () => {
+  //   XPlayer.state = [];
+  //   OPlayer.state = [];
+  for (let cell of cells) {
+    cell.removeEventListener("click", play);
+  }
+};
+
+const play = (e) => {
   //first turn is of X
   //set the current player variable as curr
+  if (e.target.textContent == "") {
+    e.target.textContent = curr;
+    updateState(e);
+    count += 1;
+    winCheck();
+    changePlayer();
+  }
+};
+
+const playGame = () => {
   for (let cell of cells) {
-    cell.addEventListener("click", (e) => {
-      if (e.target.textContent == "") {
-        e.target.textContent = curr;
-        updateState(e);
-        winCheck();
-        changePlayer();
-      }
-    });
+    cell.addEventListener("click", play);
   }
 };
 
@@ -79,11 +94,17 @@ const winCheck = () => {
       subarray.every((value) => OPlayer.state.includes(value))
     );
   }
-  console.log(XPlayer.state);
-  console.log(isWinningCondition);
-
-  if (isWinningCondition || count == 9) {
-    congrats.textContent = `Congratulations! ${curr} is the winner 🥳`;
+  //draw
+  if (count == 9 && !isWinningCondition) {
+    count == 0;
+    congrats.textContent = "GG! It's a draw 🤝 ";
+    freezeBoard();
+  }
+  //win
+  else if (isWinningCondition) {
+    count == 0;
+    congrats.textContent = `Congrats! ${curr} won 🥳`;
+    freezeBoard();
   }
 };
 playGame();
